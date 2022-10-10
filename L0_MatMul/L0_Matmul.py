@@ -41,17 +41,22 @@ def gpu_mat_mul(A, B, C):
             C[i, j] = rez
 
 def gpu_calc():
-    # настройка ядра
+    # Kernel parameters
+    # Amount of threads in block
     threadsperblock = (32, 32)
+    # Amount of blocks in grid by x
     blockspergrid_x = int(math.ceil(cpu_matrix1.shape[0] / threadsperblock[0]))
+    # Amount of blocks in grid by y
     blockspergrid_y = int(math.ceil(cpu_matrix2.shape[1] / threadsperblock[1]))
+    # Amount of blocks in whole grid
     blockspergrid = (blockspergrid_x, blockspergrid_y)
     print("Grid size = ", blockspergrid, threadsperblock)
 
-    print("GPU started working")
+    print("GPU started its work")
     start_time = time.time()
+    # Calculation on GPU on given blocks and threads
     gpu_mat_mul[blockspergrid, threadsperblock](gpu_matrix1, gpu_matrix2, gpu_matrix_res)
-    print("%s seconds (GPU)" % (time.time() - start_time))
+    print("%s seconds is time for calculation on GPU" % (time.time() - start_time))
 
 if __name__ == "__main__":
     cpu_calc()
