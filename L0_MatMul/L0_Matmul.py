@@ -51,14 +51,18 @@ def gpu_calc():
     # Amount of blocks in whole grid
     blockspergrid = (blockspergrid_x, blockspergrid_y)
     print("Grid size = ", blockspergrid, threadsperblock)
+    print("End of CPU work!\n")
 
-    print("GPU started its work")
+    print("GPU started its work...")
     start_time = time.time()
     # Calculation on GPU on given blocks and threads
     gpu_mat_mul[blockspergrid, threadsperblock](gpu_matrix1, gpu_matrix2, gpu_matrix_res)
     print("%s seconds is time for calculation on GPU" % (time.time() - start_time))
+    print("End of GPU work!\n")
+
 
 if __name__ == "__main__":
     cpu_calc()
     gpu_calc()
+    print("Hope this experiment went good!\n")
 
